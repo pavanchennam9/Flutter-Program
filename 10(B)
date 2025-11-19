@@ -1,0 +1,46 @@
+
+import 'package:flutter/material.dart';
+void main() {
+runApp(const MyApp());
+}
+class MyApp extends StatelessWidget {
+const MyApp({super.key});
+@override
+Widget build(BuildContext context) {
+return const MaterialApp(
+title: 'Debug Example',
+home: DebugExample(),
+);
+}
+}
+class DebugExample extends StatefulWidget {
+const DebugExample({super.key});
+@override
+State<DebugExample> createState() => _DebugExampleState();
+}
+class _DebugExampleState extends State<DebugExample> {
+int counter = 0;
+void increaseCounter() {
+// BUG: The counter decreases instead of increasing
+setState(() {
+counter--; // should be counter++
+debugPrint('Counter value changed to $counter');
+});
+}
+@override
+Widget build(BuildContext context) {
+return Scaffold(
+appBar: AppBar(title: const Text('Flutter Debugging Example')),
+body: Center(
+child: Text(
+'Counter: $counter',
+style: const TextStyle(fontSize: 25),
+),
+),
+floatingActionButton: FloatingActionButton(
+onPressed: increaseCounter,
+child: const Icon(Icons.add),
+),
+);
+}
+}
