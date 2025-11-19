@@ -1,0 +1,67 @@
+
+import 'package:flutter/material.dart';
+void main() {
+ runApp(const ResponsiveApp());
+}
+class ResponsiveApp extends StatelessWidget {
+ const ResponsiveApp({super.key});
+ @override
+ Widget build(BuildContext context) {
+ return MaterialApp(
+ debugShowCheckedModeBanner: false,
+ home: Scaffold(
+ appBar: AppBar(
+ title: const Text("Responsive Layout"),
+ centerTitle: true,
+ ),
+ body: LayoutBuilder(
+ builder: (context, constraints) {
+ double width = constraints.maxWidth;
+ if (width >= 1024) {
+ // Desktop Layout
+ return buildGrid(3);
+ } else if (width >= 600) {
+ // Tablet Layout
+ return buildGrid(2);
+ } else {
+ // Mobile Layout
+ return buildGrid(1);
+ }
+ },
+ ),
+ ),
+ );
+ }
+ Widget buildGrid(int crossAxisCount) {
+ return Padding(
+ padding: const EdgeInsets.all(16.0),
+ child: GridView.count(
+ crossAxisCount: crossAxisCount,
+ crossAxisSpacing: 10,
+ mainAxisSpacing: 10,
+ children: const [
+ ResponsiveBox(text: "Box 1"),
+ ResponsiveBox(text: "Box 2"),
+ ResponsiveBox(text: "Box 3"),
+ ],
+ ),
+ );
+ }
+}
+class ResponsiveBox extends StatelessWidget {
+ final String text;
+ const ResponsiveBox({super.key, required this.text});
+ @override
+ Widget build(BuildContext context) {
+ return Container(
+ decoration: BoxDecoration(
+ color: Colors.green,
+ borderRadius: BorderRadius.circular(15),
+ ),
+ alignment: Alignment.center,
+ child: Text(
+ text,
+ style: const TextStyle(color: Colors.white, fontSize: 20),
+ ),
+ );
+ }
