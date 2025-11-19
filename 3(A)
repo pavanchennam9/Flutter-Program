@@ -1,0 +1,83 @@
+
+import 'package:flutter/material.dart';
+// Entry point of the app
+void main() {
+ runApp(const ResponsiveApp()); // Runs the app and shows ResponsiveApp widget
+}
+// The root widget of the app
+class ResponsiveApp extends StatelessWidget {
+ const ResponsiveApp({super.key}); // Constructor with optional key
+ @override
+ Widget build(BuildContext context) {
+ return MaterialApp(
+ title: 'Responsive Flutter App', // Title of the app
+ theme: ThemeData(primarySwatch: Colors.blue), // App theme
+ home: const ResponsiveHomePage(), // First screen shown in the app
+ debugShowCheckedModeBanner: false, // Hides debug banner in top-right corner
+ );
+ }
+}
+// The main screen (Home Page) of the app
+class ResponsiveHomePage extends StatelessWidget {
+ const ResponsiveHomePage({super.key});
+ @override
+ Widget build(BuildContext context) {
+ return Scaffold(
+ appBar: AppBar(
+ title: const Text("Responsive UI Example"), // AppBar title
+ ),
+ // LayoutBuilder helps us build different UI based on available space
+ body: LayoutBuilder(
+ builder: (context, constraints) {
+ // constraints.maxWidth gives the current width of the screen
+ if (constraints.maxWidth < 600) {
+ // If width < 600 → it's a Mobile layout
+ return _buildMobileLayout();
+ } else if (constraints.maxWidth < 1200) {
+ // If width between 600 and 1200 → it's a Tablet layout
+ return _buildTabletLayout();
+ } else {
+ // If width >= 1200 → it's a Desktop layout
+ return _buildDesktopLayout();
+ }
+ },
+ ),
+ );
+ }
+ // ========== Different Layouts ==========
+ // Mobile Layout
+ Widget _buildMobileLayout() {
+ return Center(
+ child: Column(
+ mainAxisAlignment: MainAxisAlignment.center, // Center vertically
+ children: const [
+ Icon(Icons.phone_android, size: 80, color: Colors.blue),
+ SizedBox(height: 20), // Space between icon and text
+ Text("Mobile Layout", style: TextStyle(fontSize: 24)),
+ ],
+ ),
+ );
+ }
+ // Tablet Layout
+ Widget _buildTabletLayout() {
+ return Row(
+ mainAxisAlignment: MainAxisAlignment.center, // Center horizontally
+ children: const [
+ Icon(Icons.tablet, size: 100, color: Colors.green),
+ SizedBox(width: 20), // Space between icon and text
+ Text("Tablet Layout", style: TextStyle(fontSize: 28)),
+ ],
+ );
+ }
+ // Desktop Layout
+ Widget _buildDesktopLayout() {
+ return Row(
+ mainAxisAlignment: MainAxisAlignment.center, // Center horizontally
+ children: const [
+ Icon(Icons.desktop_windows, size: 120, color: Colors.red),
+ SizedBox(width: 20), // Space between icon and text
+ Text("Desktop Layout", style: TextStyle(fontSize: 32)),
+ ],
+ );
+ }
+}
