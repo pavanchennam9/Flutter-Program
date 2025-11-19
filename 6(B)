@@ -1,0 +1,84 @@
+
+import 'package:flutter/material.dart';
+void main() {
+runApp(const MyApp());
+}
+// MAIN APP WIDGET
+class MyApp extends StatelessWidget {
+const MyApp({super.key});
+@override
+Widget build(BuildContext context) {
+return MaterialApp(
+debugShowCheckedModeBanner: false;
+// APPLYING THEME HERE
+theme: ThemeData(
+primaryColor: Colors.deepPurple,
+colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 183, 148, 
+58)),
+scaffoldBackgroundColor: Colors.purple.shade50,
+// Custom Text Theme
+textTheme: const TextTheme(
+headlineLarge: TextStyle(
+fontSize: 30,
+fontWeight: FontWeight.bold,
+color: Color.fromARGB(255, 210, 225, 39)),
+bodyLarge: TextStyle(fontSize: 18, color: Colors.black87),
+),
+// Custom Button Theme
+elevatedButtonTheme: ElevatedButtonThemeData(
+style: ElevatedButton.styleFrom(
+backgroundColor: Colors.deepPurple,
+foregroundColor: Colors.white,
+textStyle:
+const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+shape:
+RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+),
+),
+),
+home: const HomeScreen(),
+);
+}
+}
+// HOME SCREEN
+class HomeScreen extends StatelessWidget {
+const HomeScreen({super.key});
+@override
+Widget build(BuildContext context) {
+final theme = Theme.of(context); // Access the current theme
+return Scaffold(
+appBar: AppBar(
+title: const Text("Flutter Theme Example"),
+backgroundColor: theme.primaryColor,
+),
+body: Center(
+child: Column(
+mainAxisAlignment: MainAxisAlignment.center,
+children: [
+// Using custom text style from theme
+Text("Welcome to Flutter!",
+style: theme.textTheme.headlineLarge),
+const SizedBox(height: 15),
+Text(
+"This app uses custom themes and styles.",
+style: theme.textTheme.bodyLarge,
+),
+const SizedBox(height: 25),
+// Using custom button style
+ElevatedButton(
+onPressed: () {},
+child: const Text("Get Started"),
+),
+const SizedBox(height: 15),
+ElevatedButton(
+onPressed: () {},
+style: ElevatedButton.styleFrom(
+backgroundColor: Colors.orangeAccent),
+child: const Text("Custom Color Button"),
+),
+],
+),
+),
+);
+}
