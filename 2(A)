@@ -1,0 +1,103 @@
+
+import 'package:flutter/material.dart';
+void main() {
+ runApp(const MyWidgetsApp()); }
+// Stateless Widget (Static UI elements)
+class MyWidgetsApp extends StatelessWidget {
+ const MyWidgetsApp({super.key});
+@override
+Widget build(BuildContext context) {
+ return MaterialApp(
+ debugShowCheckedModeBanner: false,
+ home: const HomeScreen(),
+ ); }}
+class HomeScreen extends StatelessWidget {
+ const HomeScreen({super.key});
+@override
+Widget build(BuildContext context) {
+ return Scaffold(
+ appBar: AppBar(
+ title: const Text("Stateless & Stateful Widgets"),
+ centerTitle: true,
+ backgroundColor: Colors.blue,
+ ),
+ body: SingleChildScrollView(
+ child: Column(
+ children: 
+ // Text Widget (Stateless)
+ const Padding(
+ padding: EdgeInsets.all(16.0),
+ child: Text(
+ "This is a Text Widget from Stateless Widget",
+ style: TextStyle(
+ fontSize: 22,
+ fontWeight: FontWeight.bold,
+ color: Colors.blue,
+ ),
+ textAlign: TextAlign.center,
+ ),
+ ),
+ // Image Widget (Stateless)
+ Image.network(
+ "https://flutter.dev/assets/images/shared/brand/flutter/logo/flutter-lockup.png",
+ width: 250,
+ height: 150,
+ fit: BoxFit.contain,
+ ),
+ // Container Widget (Stateless)
+ Container(
+ margin: const EdgeInsets.all(20),
+ padding: const EdgeInsets.all(20),
+ decoration: BoxDecoration(
+ color: Colors.green,
+ border: Border.all(color: Colors.black, width: 2),
+ borderRadius: BorderRadius.circular(15),
+ ),
+ child: const Text(
+ "This is a Container Widget",
+ style: TextStyle(fontSize: 18, color: Colors.white),
+ ),
+ ),
+ const Divider(thickness: 2),
+ // Stateful Widget Example below
+ const CounterWidget(),
+ ],
+ ),
+ ),
+ );
+}
+}
+// Stateful Widget (Dynamic UI that changes on button press)
+class CounterWidget extends StatefulWidget {
+ const CounterWidget({super.key});
+@override
+State<CounterWidget> createState() => _CounterWidgetState();
+}
+class _CounterWidgetState extends State<CounterWidget> {
+int count = 0;
+@override
+Widget build(BuildContext context) {
+ return Column(
+ children: [
+ const Text(
+ "Stateful Widget Output:",
+ style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+ ),
+ const SizedBox(height: 10),
+ Text(
+ "Count: $count",
+ style: const TextStyle(fontSize: 24, color: Colors.red, fontWeight: FontWeight.bold),
+ ),
+ const SizedBox(height: 10),
+ ElevatedButton(
+ onPressed: () {
+ setState(() {
+ count++;
+ });
+ },
+ child: const Text("Increase Count"),
+ ),
+ ],
+ );
+}
+}
