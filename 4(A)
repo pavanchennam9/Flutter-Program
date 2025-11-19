@@ -1,0 +1,79 @@
+
+import 'package:flutter/material.dart';
+void main() {
+ runApp(MyApp());
+}
+class MyApp extends StatelessWidget {
+ @override
+ Widget build(BuildContext context) {
+ return MaterialApp(
+ title: 'Flutter Navigation Demo',
+ theme: ThemeData(primarySwatch: Colors.blue),
+ home: HomeScreen(), // starting screen
+ );
+ }
+}
+// First Screen
+class HomeScreen extends StatelessWidget {
+ @override
+ Widget build(BuildContext context) {
+ return Scaffold(
+ appBar: AppBar(title: Text("Home Screen")),
+ body: Center(
+ child: ElevatedButton(
+ child: Text("Go to Second Screen"),
+ onPressed: () {
+ // Navigate to SecondScreen
+ Navigator.push(
+ context,
+ MaterialPageRoute(builder: (context) => SecondScreen()),
+ );
+ },
+ ),
+ ),
+ );
+ }
+}
+// Second Screen (Row & Column with clear matter)
+class SecondScreen extends StatelessWidget {
+ @override
+ Widget build(BuildContext context) {
+ return Scaffold(
+ appBar: AppBar(title: Text("Second Screen")),
+ body: Padding(
+ padding: const EdgeInsets.all(20.0),
+ child: Column(
+ mainAxisAlignment: MainAxisAlignment.start,
+ children: [
+ Text(
+ "Understanding Column Widget",
+ style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+ ),
+ SizedBox(height: 10),
+ Text(
+ "➡ Column arranges widgets vertically (from top to bottom).",
+ style: TextStyle(fontSize: 16),
+ ),
+ SizedBox(height: 30),
+ Text(
+ "Understanding Row Widget",
+ style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+ ),
+ SizedBox(height: 10),
+ Row(
+ mainAxisAlignment: MainAxisAlignment.center,
+ children: [
+ Icon(Icons.arrow_forward, color: Colors.blue, size: 30),
+ SizedBox(width: 10),
+ Text(
+ "Row arranges widgets horizontally (side by side).",
+ style: TextStyle(fontSize: 16),
+ ),
+ ],
+ ),
+ ],
+ ),
+ ),
+ );
+ }
+}
