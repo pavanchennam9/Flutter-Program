@@ -1,0 +1,47 @@
+AIM: write a sample dark program to understand the Language basics
+Description:
+>Dart is a client optimized Language for fast apps.
+>It is foundation of flutter, enabling beautifully natively compiled application for mobile.
+>It is an object-oriented programming language,
+>C-style syntax
+It is strong typing and ahead of Time AOT.
+Syntax of function:
+1) Define a function.
+Return type function_Name (parameter1, parameters2){
+// function body.
+//Return statement (if needed)
+}
+Example 1: Named functions.
+void sayHello() {
+print("Hello this is Dart language");
+void main () {
+SayHello ();
+}
+Output:
+Hello this is Dart language
+Ex 2: Arrow functions.
+int square (int x) =>x*x;
+void main(){
+print (Square (4));
+}
+Output:
+16
+Ex 3: Anonymous (or)Lambda functions
+void main() {
+List strings fruit = ['Apple', Banana, Mango'];
+fruits forEach((fruit) {
+print("Fruit: & fruit");
+});
+Output: 
+Fruit: Apple
+Fruit: Banana
+Fruit: Mango
+4)return value function.
+int add (int a, int b) {
+return a + b;
+void main () {
+int result = add (5,3);
+print ("sum: $result”);
+}
+Output: 
+8
