@@ -1,0 +1,121 @@
+
+import 'package:flutter/material.dart';
+void main() {
+runApp(const MyApp());
+}
+class MyApp extends StatelessWidget {
+const MyApp({super.key});
+@override
+Widget build(BuildContext context) {
+return MaterialApp(
+debugShowCheckedModeBanner: false, // Removes the debug banner
+title: 'User Form',
+theme: ThemeData(
+primarySwatch: Colors.teal,
+),
+home: const UserForm(),
+);
+}
+}
+class UserForm extends StatefulWidget {
+const UserForm({super.key});
+@override
+State<UserForm> createState() => _UserFormState();
+}
+class _UserFormState extends State<UserForm> {
+// Controllers to manage text field input
+final nameController = TextEditingController();
+final emailController = TextEditingController();
+final phoneController = TextEditingController();
+final passwordController = TextEditingController();
+// Function to show entered data in a dialog box
+void _showData() {
+showDialog(
+context: context,
+builder: (context) => AlertDialog(
+title: const Text("User Details"),
+content: Text(
+"Name: ${nameController.text}\n"
+"Email: ${emailController.text}\n"
+"Phone: ${phoneController.text}\n"
+"Password: ${passwordController.text}",
+),
+actions: [
+TextButton(
+onPressed: () => Navigator.pop(context),
+child: const Text("OK"),
+),
+],
+),
+);
+}
+@override
+Widget build(BuildContext context) {
+return Scaffold(
+appBar: AppBar(
+title: const Text("User Registration Form"),
+centerTitle: true,
+),
+body: Padding(
+padding: const EdgeInsets.all(16.0),
+child: SingleChildScrollView(
+child: Column(
+children: [
+// Name Input
+TextField(
+controller: nameController,
+decoration: const InputDecoration(
+labelText: "Full Name",
+prefixIcon: Icon(Icons.person),
+border: OutlineInputBorder(),
+), ),
+const SizedBox(height: 16),
+// Email Input
+TextField(
+controller: emailController,
+decoration: const InputDecoration(
+labelText: "Email",
+prefixIcon: Icon(Icons.email),
+border: OutlineInputBorder(),
+),
+keyboardType: TextInputType.emailAddress,
+),
+const SizedBox(height: 16),
+// Phone Input
+TextField(
+controller: phoneController,
+decoration: const InputDecoration(
+labelText: "Phone Number",
+prefixIcon: Icon(Icons.phone),
+border: OutlineInputBorder(),
+),
+keyboardType: TextInputType.phone,
+),
+const SizedBox(height: 16),
+// Password Input
+TextField(
+controller: passwordController,
+decoration: const InputDecoration(
+labelText: "Password",
+prefixIcon: Icon(Icons.lock),
+border: OutlineInputBorder(),
+),
+obscureText: true, // Hides password characters
+),
+const SizedBox(height: 24),
+// Submit Button
+ElevatedButton(
+style: ElevatedButton.styleFrom(
+padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+shape: RoundedRectangleBorder(
+borderRadius: BorderRadius.circular(12)),
+),
+onPressed: _showData,
+child: const Text(
+"Submit",
+style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+), ),
+],
+),),),
+);
+}}
