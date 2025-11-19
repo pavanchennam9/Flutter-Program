@@ -1,0 +1,121 @@
+
+import 'package:flutter/material.dart';
+void main() => runApp(MyApp());
+class MyApp extends StatelessWidget {
+ @override
+ Widget build(BuildContext context) {
+ return MaterialApp(
+ title: 'Flutter Named Routes Demo',
+ theme: ThemeData(primarySwatch: Colors.blue),
+ initialRoute: '/',
+ routes: {
+ '/': (context) => HomeScreen(),
+ '/profile': (context) => ProfileScreen(),
+ '/settings': (context) => SettingsScreen(),
+ },
+ );
+ }
+}
+class HomeScreen extends StatelessWidget {
+ @override
+ Widget build(BuildContext context) {
+ String userName = "Yashwanth"; // Example data
+ return Scaffold(
+ appBar: AppBar(title: Text('Home')),
+ drawer: AppDrawer(),
+ body: Center(
+ child: ElevatedButton(
+ child: Text('Go to Profile with Data'),
+ onPressed: () {
+ Navigator.pushNamed(
+ context,
+ '/profile',
+ arguments: userName, // Passing data
+ );
+ },
+ ),
+ ),
+ );
+ }
+}
+class ProfileScreen extends StatelessWidget {
+ @override
+ Widget build(BuildContext context) {
+ final userName = ModalRoute.of(context)!.settings.arguments as String?;
+ return Scaffold(
+ appBar: AppBar(title: Text('Profile')),
+ drawer: AppDrawer(),
+ body: Center(
+ child: Column(
+ mainAxisAlignment: MainAxisAlignment.center,
+ children: [
+ Text(
+ userName != null ? "Hello, $userName " : "No user data received",
+ style: TextStyle(fontSize: 20),
+ ),
+ SizedBox(height: 20),
+ ElevatedButton(
+ child: Text('Go to Settings'),
+ onPressed: () {
+ Navigator.pushNamed(context, '/settings');
+ },
+ ),
+ ],
+ ),
+ ),
+ );
+ }
+}
+class SettingsScreen extends StatelessWidget {
+ @override
+ Widget build(BuildContext context) {
+ return Scaffold(
+ appBar: AppBar(title: Text('Settings')),
+ drawer: AppDrawer(),
+ body: Center(
+ child: Text(
+ 'Settings Page ⚙',
+ style: TextStyle(fontSize: 20),
+ ),
+ ),
+ );
+ }
+}
+// Common Drawer Widget for navigation
+class AppDrawer extends StatelessWidget {
+ @override
+ Widget build(BuildContext context) {
+ return Drawer(
+ child: ListView(
+ children: [
+ UserAccountsDrawerHeader(
+ accountName: Text("Flutter User"),
+ accountEmail: Text("flutter@example.com"),
+ currentAccountPicture: CircleAvatar(
+ backgroundColor: Colors.white,
+ child: Icon(Icons.person, size: 40, color: Colors.blue),
+ ),
+ ),
+ ListTile(
+ leading: Icon(Icons.home),
+ title: Text('Home'),
+ onTap: () {
+ Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+ },
+ ),
+ ListTile(
+ leading: Icon(Icons.person),
+ title: Text('Profile'),
+ onTap: () {
+ Navigator.pushNamed(context, '/profile', arguments: "Yashwanth");
+ },
+ ),
+ ListTile(
+ leading: Icon(Icons.settings),
+ title: Text('Settings'),
+ onTap: () {
+ Navigator.pushNamed(context, '/settings');
+ },
+ ),
+ ],
+ ),
