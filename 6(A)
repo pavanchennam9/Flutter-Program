@@ -1,0 +1,99 @@
+
+import 'package:flutter/material.dart';
+// Custom Button Widget
+class CustomButton extends StatelessWidget {
+final String text;
+final Color color;
+final VoidCallback onPressed;
+const CustomButton({
+super.key,
+required this.text,
+required this.color,
+required this.onPressed,
+});
+@override
+Widget build(BuildContext context) {
+return ElevatedButton(
+style: ElevatedButton.styleFrom(
+backgroundColor: color,
+padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+shape: RoundedRectangleBorder(
+borderRadius: BorderRadius.circular(12),
+),
+),
+onPressed: onPressed,
+child: Text(
+text,
+style: const TextStyle(fontSize: 18, color: Colors.white),
+),
+);
+}
+}
+// Custom Card Widget
+class CustomInfoCard extends StatelessWidget {
+final String title;
+final String description;
+final IconData icon;
+const CustomInfoCard({
+super.key,
+required this.title,
+required this.description,
+required this.icon,
+});
+@override
+Widget build(BuildContext context) {
+return Card(
+margin: const EdgeInsets.all(12),
+elevation: 6,
+shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+child: Padding(
+padding: const EdgeInsets.all(16),
+child: Row(
+children: [
+Icon(icon, size: 40, color: Colors.blue),
+const SizedBox(width: 15),
+Column(
+crossAxisAlignment: CrossAxisAlignment.start,
+children: [
+Text(title,
+style: const TextStyle(
+fontSize: 20, fontWeight: FontWeight.bold)),
+Text(description, style: const TextStyle(fontSize: 16)),
+],
+),],),), );}}
+// Main App
+void main() {
+runApp(const MyApp());
+}
+class MyApp extends StatelessWidget {
+const MyApp({super.key});
+@override
+Widget build(BuildContext context) {
+return MaterialApp(
+debugShowCheckedModeBanner: false,
+home: Scaffold(
+appBar: AppBar(title: const Text("Custom Widgets Example")),
+body: Center(
+child: Column(
+mainAxisAlignment: MainAxisAlignment.center,
+children: [
+const CustomInfoCard(
+title: "Flutter",
+description: "Create beautiful UIs easily.",
+icon: Icons.flutter_dash,
+),
+const SizedBox(height: 20),
+CustomButton(
+text: "Click Me",
+color: Colors.blue,
+onPressed: () {
+print("Button Pressed!");
+},
+),
+],
+),
+),
+),
+);
+}
+}
