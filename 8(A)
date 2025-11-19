@@ -1,0 +1,86 @@
+
+import 'package:flutter/material.dart';
+void main() {
+runApp(const MyApp());
+}
+class MyApp extends StatelessWidget {
+const MyApp({super.key});
+@override
+Widget build(BuildContext context) {
+return MaterialApp(
+debugShowCheckedModeBanner: false,
+title: 'Animated UI Demo',
+theme: ThemeData(
+primarySwatch: Colors.purple,
+),
+home: const AnimatedBoxDemo(),
+);
+}
+}
+class AnimatedBoxDemo extends StatefulWidget {
+const AnimatedBoxDemo({super.key});
+@override
+State<AnimatedBoxDemo> createState() => _AnimatedBoxDemoState();
+}
+class _AnimatedBoxDemoState extends State<AnimatedBoxDemo> {
+// Initial properties of the animated box
+double _boxWidth = 150;
+double _boxHeight = 150;
+Color _boxColor = Colors.blue;
+BorderRadiusGeometry _borderRadius = BorderRadius.circular(10);
+// Function to trigger animation
+void _animateBox() {
+setState(() {
+// Randomly toggle properties for animation effect
+_boxWidth = _boxWidth == 150 ? 250 : 150;
+_boxHeight = _boxHeight == 150 ? 250 : 150;
+_boxColor = _boxColor == Colors.blue ? Colors.orange : Colors.blue;
+_borderRadius = _borderRadius == BorderRadius.circular(10)
+? BorderRadius.circular(60)
+: BorderRadius.circular(10);
+});
+}
+@override
+Widget build(BuildContext context) {
+return Scaffold(
+appBar: AppBar(
+title: const Text("Flutter Animation Example"),
+centerTitle: true,
+),
+body: Center(
+child: Column(
+mainAxisAlignment: MainAxisAlignment.center,
+children: [
+// Animated Container
+AnimatedContainer(
+width: _boxWidth,
+height: _boxHeight,
+decoration: BoxDecoration(
+color: _boxColor,
+borderRadius: _borderRadius,
+),
+duration: const Duration(seconds: 1), // Animation speed
+curve: Curves.easeInOut, // Smooth movement
+),
+const SizedBox(height: 30),
+// Animation Trigger Button
+ElevatedButton(
+onPressed: _animateBox,
+style: ElevatedButton.styleFrom(
+padding:
+const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+shape: RoundedRectangleBorder(
+borderRadius: BorderRadius.circular(12),
+),
+),
+child: const Text(
+"Animate Box",
+style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+), 
+),
+],
+),
+),
+);
+}
+}
